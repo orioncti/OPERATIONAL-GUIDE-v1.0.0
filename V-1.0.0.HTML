@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberLab Blueprint &mdash; By Ejon Rexhepi</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;family=Barlow+Condensed:wght@400;600;700;800;900&amp;family=Orbitron:wght@700;900&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #111927;
+  --bg2:      #172233;
+  --bg3:      #1c2a3e;
+  --border:   #243650;
+  --accent:   #3db8cc;
+  --accent2:  #2ecc82;
+  --accent3:  #d4693a;
+  --accent4:  #9b50d4;
+  --text:     #a8bece;
+  --dim:      #506070;
+  --bright:   #daeaf6;
+  --red:      #c0394f;
+  --yellow:   #c8a832;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(61,184,204,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,184,204,.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* PROGRESS */
+#prog {
+  position: fixed; top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 3000;
+  width: 0;
+  transition: width .1s;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(17,25,39,.98);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+}
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: .88rem;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: 3px;
+}
+.nav-logo em { color: var(--accent2); font-style: normal; }
+.nav-links { display: flex; list-style: none; }
+.nav-links a {
+  display: block;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: .5rem 1.1rem;
+  border-left: 1px solid var(--border);
+  transition: color .2s, background .2s;
+}
+.nav-links a:hover { color: var(--accent); background: rgba(61,184,204,.04); }
+.nav-pill {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  color: var(--accent2);
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  border: 1px solid var(--border);
+  padding: .3rem .8rem;
+}
+.dot {
+  width: 5px; height: 5px;
+  background: var(--accent2);
+  animation: blink 2.5s ease infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  position: relative;
+  z-index: 1;
+}
+.hero-grid-lines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg, transparent, transparent 100px,
+    rgba(61,184,204,.01) 100px, rgba(61,184,204,.01) 101px
+  );
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 2; max-width: 860px; }
+.eyebrow {
+  display: inline-block;
+  background: rgba(61,184,204,.06);
+  border: 1px solid rgba(61,184,204,.18);
+  border-left: 3px solid var(--accent);
+  padding: .35rem 1.1rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2.2rem;
+}
+h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  color: var(--bright);
+  line-height: 1.1;
+  margin-bottom: 1.6rem;
+  letter-spacing: -1px;
+}
+h1 .c1 { color: var(--accent); }
+h1 .c2 { color: var(--accent2); }
+.hero-sub {
+  font-size: 1rem;
+  color: var(--dim);
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.85;
+  font-weight: 400;
+}
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+.tag {
+  padding: .3rem .95rem;
+  border: 1px solid;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.t1 { border-color: var(--accent);  color: var(--accent); }
+.t2 { border-color: var(--accent3); color: var(--accent3); }
+.t3 { border-color: var(--accent2); color: var(--accent2); }
+.t4 { border-color: var(--accent4); color: var(--accent4); }
+.stats {
+  display: flex;
+  border: 1px solid var(--border);
+}
+.stat {
+  flex: 1;
+  padding: 1.6rem 1rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  display: block;
+  margin-bottom: .2rem;
+}
+.stat-lbl {
+  font-size: .65rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* WRAP */
+.wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* SECTION HEAD */
+.sec-head { text-align: center; padding: 5.5rem 0 3rem; }
+.sec-ey {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .63rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: .9rem;
+}
+.sec-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-weight: 900;
+  color: var(--bright);
+  margin-bottom: .9rem;
+}
+.sec-desc {
+  color: var(--dim);
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: .93rem;
+  line-height: 1.75;
+}
+
+/* ARCH */
+.arch-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 2.2rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+.arch-lbl {
+  position: absolute; top: .9rem; left: 1.4rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .58rem;
+  color: var(--dim);
+  letter-spacing: 2px;
+}
+.arch-grid {
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr 70px 1fr;
+  align-items: center;
+  margin-top: 2.2rem;
+}
+.zone {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 1.6rem;
+  text-align: center;
+}
+.zone-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.zi .zone-title { color: var(--red); }
+.zd .zone-title { color: var(--yellow); }
+.zl .zone-title { color: var(--accent2); }
+.nd {
+  display: block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .68rem;
+  padding: .3rem .5rem;
+  margin: .25rem 0;
+}
+.nr { background: rgba(192,57,79,.08); border: 1px solid rgba(192,57,79,.25); color: var(--red); }
+.ny { background: rgba(200,168,50,.08); border: 1px solid rgba(200,168,50,.25); color: var(--yellow); }
+.ng { background: rgba(46,204,130,.08); border: 1px solid rgba(46,204,130,.25); color: var(--accent2); }
+.nb { background: rgba(61,184,204,.08); border: 1px solid rgba(61,184,204,.25); color: var(--accent); }
+.arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  color: var(--border);
+  font-size: 1.2rem;
+}
+.arrow span {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .5rem;
+  color: var(--dim);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* TABS */
+.tab-nav {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  overflow-x: auto;
+}
+.tbtn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: .9rem 1.3rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dim);
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.tbtn:hover { color: var(--bright); }
+.tbtn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tnum { font-family: 'Share Tech Mono', monospace; font-size: .55rem; margin-right: .4rem; opacity: .5; }
+.tbtn.active .tnum { opacity: .8; }
+.tpane { display: none; animation: tfade .25s ease; }
+.tpane.active { display: block; }
+@keyframes tfade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* PHASE HEADER */
+.ph {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+}
+.ph-icon { font-size: 2.3rem; line-height: 1; flex-shrink: 0; }
+.ph-ey {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.ph-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--bright);
+  margin-bottom: .7rem;
+}
+.ph-desc { color: var(--dim); font-size: .92rem; line-height: 1.75; }
+.badges { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: 1rem; }
+.badge {
+  padding: .18rem .6rem;
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.b1 { border-color: rgba(61,184,204,.35); color: var(--accent); }
+.b2 { border-color: rgba(212,105,58,.35); color: var(--accent3); }
+.b3 { border-color: rgba(46,204,130,.35); color: var(--accent2); }
+.b4 { border-color: rgba(155,80,212,.35); color: var(--accent4); }
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  transition: border-color .2s;
+}
+.card:hover { border-color: rgba(61,184,204,.3); }
+.card-step {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .58rem;
+  color: var(--dim);
+  letter-spacing: 2px;
+  margin-bottom: .75rem;
+}
+.card-title { font-size: 1.05rem; font-weight: 800; color: var(--bright); margin-bottom: .8rem; }
+.card-desc { font-size: .88rem; color: var(--dim); line-height: 1.7; margin-bottom: 1.1rem; }
+
+/* CODE */
+.code-wrap { margin: .75rem 0; }
+.code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  padding: .45rem 1rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  color: var(--dim);
+  letter-spacing: 1px;
+}
+.code-head em { color: var(--accent); font-style: normal; }
+pre {
+  background: #0d1520;
+  border: 1px solid var(--border);
+  padding: 1.1rem 1.2rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .75rem;
+  color: #7bbf8a;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+}
+.cm { color: #3d5a6e; }
+.cx { color: #5aafc0; }
+.cv { color: #b07540; }
+.cf { color: #8060a0; }
+
+/* CHECKLIST */
+.chk { list-style: none; margin: .5rem 0; }
+.chk li {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .5rem 0;
+  font-size: .9rem;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+  cursor: pointer;
+  transition: color .15s;
+}
+.chk li:hover { color: var(--bright); }
+.chk-box {
+  width: 15px; height: 15px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .55rem;
+  color: var(--accent2);
+  transition: all .15s;
+}
+.chk li.done { color: var(--dim); text-decoration: line-through; }
+.chk li.done .chk-box { background: rgba(46,204,130,.1); border-color: var(--accent2); }
+
+/* ALERTS */
+.alert {
+  padding: 1.1rem 1.3rem;
+  margin: 1.5rem 0;
+  display: flex;
+  gap: .8rem;
+  font-size: .88rem;
+  line-height: 1.7;
+  border-left: 3px solid;
+}
+.alert-icon { flex-shrink: 0; font-size: 1rem; margin-top: .1rem; }
+.aw { background: rgba(200,168,50,.05); border-color: var(--yellow); color: rgba(200,168,50,.85); border-right: 1px solid rgba(200,168,50,.1); border-top: 1px solid rgba(200,168,50,.1); border-bottom: 1px solid rgba(200,168,50,.1); }
+.ad { background: rgba(192,57,79,.05); border-color: var(--red); color: rgba(192,57,79,.9); border-right: 1px solid rgba(192,57,79,.1); border-top: 1px solid rgba(192,57,79,.1); border-bottom: 1px solid rgba(192,57,79,.1); }
+.ai { background: rgba(61,184,204,.05); border-color: var(--accent); color: rgba(61,184,204,.9); border-right: 1px solid rgba(61,184,204,.1); border-top: 1px solid rgba(61,184,204,.1); border-bottom: 1px solid rgba(61,184,204,.1); }
+.ag { background: rgba(46,204,130,.05); border-color: var(--accent2); color: rgba(46,204,130,.9); border-right: 1px solid rgba(46,204,130,.1); border-top: 1px solid rgba(46,204,130,.1); border-bottom: 1px solid rgba(46,204,130,.1); }
+
+/* TOOLS GRID */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+  margin: 1.3rem 0;
+}
+.tool {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1.3rem;
+  text-align: center;
+  transition: border-color .2s;
+}
+.tool:hover { border-color: rgba(61,184,204,.3); }
+.tool-icon { font-size: 1.6rem; margin-bottom: .65rem; }
+.tool-name { font-family: 'Share Tech Mono', monospace; font-size: .76rem; color: var(--bright); margin-bottom: .25rem; }
+.tool-type { font-size: .67rem; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+.pill {
+  display: inline-block;
+  margin-top: .55rem;
+  font-size: .58rem;
+  padding: .12rem .5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.pfree  { color: var(--accent2); border-color: rgba(46,204,130,.3); }
+.ppaid  { color: var(--yellow);  border-color: rgba(200,168,50,.3); }
+.pfree2 { color: var(--accent);  border-color: rgba(61,184,204,.3); }
+
+/* OSINT CARDS */
+.osint-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.osint-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent4);
+  padding: 1.8rem;
+}
+.osint-card.silo        { border-top-color: var(--accent); }
+.osint-card.anyrun      { border-top-color: var(--accent3); }
+.osint-card.urlscan     { border-top-color: var(--accent2); }
+.osint-card.browserling { border-top-color: var(--yellow); }
+.osint-card.whonix      { border-top-color: var(--accent4); }
+.osint-tool-name {
+  font-family: 'Orbitron', monospace;
+  font-size: .95rem;
+  font-weight: 900;
+  color: var(--bright);
+  margin-bottom: .3rem;
+}
+.osint-tagline {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  color: var(--dim);
+  letter-spacing: 1px;
+  margin-bottom: 1.1rem;
+}
+.osint-desc { font-size: .88rem; color: var(--dim); line-height: 1.7; margin-bottom: 1rem; }
+.osint-how { font-size: .85rem; color: var(--text); line-height: 1.65; }
+.osint-how strong { color: var(--accent); font-weight: 800; }
+.osint-tip {
+  margin-top: 1rem;
+  padding: .75rem 1rem;
+  background: rgba(61,184,204,.04);
+  border-left: 2px solid var(--accent);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .67rem;
+  color: var(--dim);
+  line-height: 1.65;
+}
+.osint-card.anyrun      .osint-tip { border-left-color: var(--accent3); background: rgba(212,105,58,.04); }
+.osint-card.urlscan     .osint-tip { border-left-color: var(--accent2); background: rgba(46,204,130,.04); }
+.osint-card.browserling .osint-tip { border-left-color: var(--yellow);  background: rgba(200,168,50,.04); }
+.osint-card.whonix      .osint-tip { border-left-color: var(--accent4); background: rgba(155,80,212,.04); }
+
+/* COMPARE TABLE */
+.tbl { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .85rem; }
+.tbl th {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: .65rem .9rem;
+  text-align: left;
+}
+.tbl td { border: 1px solid var(--border); padding: .6rem .9rem; color: var(--dim); vertical-align: top; }
+.tbl tr:hover td { background: var(--bg3); color: var(--text); }
+.tbl .yes     { color: var(--accent2); font-weight: 800; }
+.tbl .no      { color: var(--red);     font-weight: 800; }
+.tbl .partial { color: var(--yellow);  font-weight: 800; }
+
+/* OUTCOMES */
+.outcomes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 4.5rem;
+}
+.oc {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+}
+.oc-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+.oc-title { font-family: 'Orbitron', monospace; font-size: .85rem; font-weight: 900; color: var(--bright); margin-bottom: .7rem; }
+.oc-desc { font-size: .85rem; color: var(--dim); line-height: 1.65; }
+.oc ul { list-style: none; margin-top: .75rem; }
+.oc ul li { font-size: .83rem; color: var(--dim); padding: .2rem 0; }
+.oc ul li::before { content: '&rarr; '; color: var(--accent); font-weight: 700; }
+
+/* REFS */
+.refs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.3rem;
+  padding-bottom: 4.5rem;
+}
+.ref-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  transition: border-color .2s;
+}
+.ref-card:hover { border-color: rgba(61,184,204,.3); }
+.ref-source {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .58rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: .45rem;
+}
+.rs-comptia { color: var(--accent); }
+.rs-ceh     { color: var(--accent3); }
+.rs-sans    { color: var(--accent2); }
+.rs-defcon  { color: var(--accent4); }
+.rs-tool    { color: var(--yellow); }
+.ref-title { font-size: .93rem; font-weight: 800; color: var(--bright); margin-bottom: .45rem; }
+.ref-desc  { font-size: .8rem; color: var(--dim); line-height: 1.6; margin-bottom: .8rem; }
+.ref-url   { font-family: 'Share Tech Mono', monospace; font-size: .64rem; color: var(--accent); word-break: break-all; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3.5rem 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.f-logo { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 900; color: var(--accent); letter-spacing: 3px; margin-bottom: .6rem; }
+.f-logo span { color: var(--accent2); }
+.f-author { font-family: 'Share Tech Mono', monospace; font-size: .68rem; color: var(--dim); margin-bottom: .4rem; }
+.f-author strong { color: var(--bright); }
+.f-legal { font-family: 'Share Tech Mono', monospace; font-size: .6rem; color: var(--dim); max-width: 500px; line-height: 1.85; margin-top: .9rem; }
+.f-right { text-align: right; }
+.f-version { font-family: 'Share Tech Mono', monospace; font-size: .65rem; color: var(--dim); }
+.f-version strong { color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .arch-grid { grid-template-columns: 1fr; }
+  .arrow { transform: rotate(90deg); margin: .5rem auto; }
+  .nav-links { display: none; }
+  .stats { flex-wrap: wrap; }
+  .stat { min-width: 50%; }
+  .footer-inner { flex-direction: column; }
+  .f-right { text-align: left; }
+}
+</style>
+<meta name="clear_all" content="1">
+</head>
+<body>
+<div id="prog"></div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CYBER<em>LAB</em> // BLUEPRINT</div>
+  <ul class="nav-links">
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#phases">Build Phases</a></li>
+    <li><a href="#osint">OSINT OpSec</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+  <div class="nav-pill">
+<div class="dot"></div>EDUCATIONAL USE ONLY</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">&#9670; OPERATIONAL GUIDE &mdash; v1.0.0 &mdash; BY EJON REXHEPI &#9670;</div>
+    <h1>BUILD YOUR<br><span class="c1">CYBER SECURITY</span><br><span class="c2">LAB</span> FROM ZERO</h1>
+    <p class="hero-sub">A complete step-by-step blueprint synthesized from CompTIA, CEH, SANS Institute, and DEF CON methodologies. Build an isolated, professional-grade offensive and defensive lab &mdash; including sandbox VMs, VPN gateway, Tor routing, segmented network architecture, and full OSINT operational security tooling.</p>
+    <div class="tag-row">
+      <span class="tag t1">CompTIA Security+ / CySA+</span>
+      <span class="tag t2">CEH Practical</span>
+      <span class="tag t3">SANS SEC504 / FOR610</span>
+      <span class="tag t4">DEF CON Workshops</span>
+    </div>
+    <div class="stats">
+      <div class="stat">
+<div class="stat-num">7</div>
+<div class="stat-lbl">Build Phases</div>
+</div>
+      <div class="stat">
+<div class="stat-num">50+</div>
+<div class="stat-lbl">CLI Commands</div>
+</div>
+      <div class="stat">
+<div class="stat-num">3</div>
+<div class="stat-lbl">Network Segments</div>
+</div>
+      <div class="stat">
+<div class="stat-num">5</div>
+<div class="stat-lbl">OSINT Tools</div>
+</div>
+      <div class="stat">
+<div class="stat-num">~$0</div>
+<div class="stat-lbl">If Virtualized</div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-ey">// NETWORK DESIGN</div>
+      <div class="sec-title">WHAT YOU ARE BUILDING</div>
+      <p class="sec-desc">A fully isolated three-tier network topology modeled after real enterprise SOC and red team lab environments. Every layer has a specific security function.</p>
+    </div>
+    <div class="arch-box">
+      <div class="arch-lbl">NETWORK TOPOLOGY // ISOLATION ARCHITECTURE</div>
+      <div class="arch-grid">
+        <div class="zone zi">
+          <div class="zone-title">&#9888; INTERNET / WAN</div>
+          <span class="nd nr">Public Internet</span>
+          <span class="nd nr">Threat Feeds</span>
+          <span class="nd nr">VPN Endpoint</span>
+          <span class="nd nr">Tor Entry Node</span>
+        </div>
+        <div class="arrow">&#10230;<span>FIREWALL</span><span>pfSense</span>
+</div>
+        <div class="zone zd">
+          <div class="zone-title">&#9672; DMZ / GATEWAY</div>
+          <span class="nd ny">pfSense Router</span>
+          <span class="nd ny">OpenVPN / WireGuard</span>
+          <span class="nd ny">Tor Gateway (Whonix)</span>
+          <span class="nd ny">Wazuh SIEM</span>
+        </div>
+        <div class="arrow">&#10230;<span>ISOLATED</span><span>VLAN</span>
+</div>
+        <div class="zone zl">
+          <div class="zone-title">&#10003; LAB SEGMENT</div>
+          <span class="nd ng">Kali Linux (Attack)</span>
+          <span class="nd ng">REMnux (Malware)</span>
+          <span class="nd nb">Windows Target VM</span>
+          <span class="nd nb">Metasploitable 3</span>
+        </div>
+      </div>
+    </div>
+    <div class="alert ad">
+<span class="alert-icon">&#128737;</span><div>
+<strong>CRITICAL &mdash; NETWORK ISOLATION:</strong> Before running any exploit framework or malware sample, confirm your VMs are on host-only or internal network &mdash; NEVER bridged to your production LAN. Verify VM network adapter settings every single session. This is the #1 mistake beginners make.</div>
+</div>
+    <div class="alert aw">
+<span class="alert-icon">&#9878;</span><div>
+<strong>LEGAL NOTICE:</strong> This guide is for educational purposes only. Never use offensive techniques against systems you do not own or have explicit written authorization to test. CompTIA, EC-Council (CEH), SANS, and DEF CON all enforce strict codes of ethics.</div>
+</div>
+  </div>
+</section>
+<!-- PHASES -->
+<section id="phases">
+<div class="wrap">
+<div class="sec-head">
+  <div class="sec-ey">// BUILD PHASES</div>
+  <div class="sec-title">STEP-BY-STEP CONSTRUCTION</div>
+  <p class="sec-desc">Follow each phase in order. Each builds on the last. Do not skip the network isolation phase &mdash; it is the security foundation of everything else.</p>
+</div>
+<div class="tab-nav">
+  <button class="tbtn active" onclick="sw(this,'p1')"><span class="tnum">01//</span>Prerequisites</button>
+  <button class="tbtn" onclick="sw(this,'p2')"><span class="tnum">02//</span>Hypervisor</button>
+  <button class="tbtn" onclick="sw(this,'p3')"><span class="tnum">03//</span>Network</button>
+  <button class="tbtn" onclick="sw(this,'p4')"><span class="tnum">04//</span>VPN &amp; Tor</button>
+  <button class="tbtn" onclick="sw(this,'p5')"><span class="tnum">05//</span>Lab VMs</button>
+  <button class="tbtn" onclick="sw(this,'p6')"><span class="tnum">06//</span>Monitoring</button>
+</div>
+
+<!-- PHASE 1 -->
+<div class="tpane active" id="p1">
+  <div class="ph">
+<div class="ph-icon">&#128297;</div>
+<div>
+    <div class="ph-ey">// PHASE 01 &mdash; FOUNDATION</div>
+    <div class="ph-title">HARDWARE &amp; SOFTWARE PREREQUISITES</div>
+    <div class="ph-desc">Verify your hardware before downloading anything. SANS FOR610 and CEH Practical both require a host capable of running 3&ndash;4 concurrent VMs. CompTIA CySA+ emphasizes understanding system requirements before building any security environment. Skipping this causes failures mid-build.</div>
+    <div class="badges">
+<span class="badge b1">CompTIA CySA+</span><span class="badge b3">SANS FOR610</span><span class="badge b2">CEH Practical</span>
+</div>
+  </div>
+</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-step">STEP 01.1 // HARDWARE CHECK</div>
+      <div class="card-title">Minimum Hardware Requirements</div>
+      <div class="card-desc">Your host machine must meet these specs. 32GB RAM lets you run Kali + Windows Target + pfSense + SIEM simultaneously &mdash; the minimum for realistic scenarios.</div>
+      <ul class="chk">
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>CPU: 4+ cores, Intel VT-x or AMD-V capable</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>RAM: 16GB minimum &mdash; 32GB strongly recommended</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Storage: 200GB+ free SSD (snapshots eat space fast)</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>NIC: Gigabit Ethernet or Wi-Fi 5 minimum</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Virtualization enabled in BIOS/UEFI settings</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 01.2 // BIOS VERIFICATION</div>
+      <div class="card-title">Enable &amp; Verify Virtualization</div>
+      <div class="card-desc">The most overlooked step. Without VT-x/AMD-V, 64-bit VMs will not start and nested virtualization fails completely. Enter BIOS and enable before proceeding.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>VERIFY COMMAND</em> &mdash; Linux Host</div>
+        <pre><span class="cm"># Check VT-x/AMD-V is active</span>
+<span class="cx">egrep</span> -c <span class="cv">'(vmx|svm)'</span> /proc/cpuinfo
+<span class="cm"># Result &gt; 0 means virtualization is ON</span>
+
+<span class="cm"># macOS check</span>
+<span class="cx">sysctl</span> kern.hv_support
+<span class="cm"># 1 = supported, 0 = not supported</span>
+
+<span class="cm"># Windows PowerShell</span>
+<span class="cx">Get-ComputerInfo</span> -Property HyperVRequirement*</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 01.3 // DOWNLOADS</div>
+      <div class="card-title">Required Software Stack</div>
+      <div class="card-desc">Download only from official sources. Verify every SHA256 checksum before installing. A tampered ISO can compromise your entire lab from day zero.</div>
+      <div class="tools" style="grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.5rem;">
+        <div class="tool">
+<div class="tool-name">VirtualBox</div>
+<div class="tool-type">Hypervisor</div>
+<span class="pill pfree">FREE</span>
+</div>
+        <div class="tool">
+<div class="tool-name">VMware WS Pro</div>
+<div class="tool-type">Hypervisor</div>
+<span class="pill ppaid">PAID</span>
+</div>
+        <div class="tool">
+<div class="tool-name">pfSense CE</div>
+<div class="tool-type">Firewall/Router</div>
+<span class="pill pfree">FREE</span>
+</div>
+        <div class="tool">
+<div class="tool-name">Kali Linux</div>
+<div class="tool-type">Attack Distro</div>
+<span class="pill pfree">FREE</span>
+</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 01.4 // INTEGRITY CHECK</div>
+      <div class="card-title">Verify ISO SHA256 Checksums</div>
+      <div class="card-desc">DEF CON researchers have documented supply-chain attacks via modified ISOs. This step is non-negotiable in any professional lab setup.</div>
+      <div class="code-wrap">
+        <div class="code-head"><em>CHECKSUM VERIFY</em></div>
+        <pre><span class="cm"># Linux / macOS</span>
+<span class="cx">sha256sum</span> kali-linux-2024.4-amd64.iso
+<span class="cx">sha256sum</span> pfSense-CE-2.7.2-amd64.iso
+
+<span class="cm"># Windows PowerShell</span>
+<span class="cx">Get-FileHash</span> <span class="cf">-Algorithm</span> SHA256 kali.iso
+<span class="cx">Get-FileHash</span> <span class="cf">-Algorithm</span> SHA256 pfsense.iso
+
+<span class="cm"># Compare output vs official site hash</span>
+<span class="cm"># NEVER skip this verification step</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="alert ai">
+<span class="alert-icon">&#8505;</span><div>
+<strong>SANS Tip:</strong> SANS FOR610 recommends dedicated physical hardware for malware analysis to prevent any hypervisor escape edge cases. For general CTF/pentest practice, properly configured VMs are safe and sufficient.</div>
+</div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="tpane" id="p2">
+  <div class="ph">
+<div class="ph-icon">&#9881;&#65039;</div>
+<div>
+    <div class="ph-ey">// PHASE 02 &mdash; VIRTUALIZATION</div>
+    <div class="ph-title">HYPERVISOR SETUP</div>
+    <div class="ph-desc">VirtualBox is free and cross-platform &mdash; used as the reference in CompTIA lab exercises. VMware Workstation Pro is preferred for SANS courses due to better snapshot management, higher performance, and robust nested virtualization support for complex topologies.</div>
+    <div class="badges">
+<span class="badge b1">CompTIA Labs</span><span class="badge b2">CEH iLabs Alt</span><span class="badge b3">SANS VMware Preferred</span>
+</div>
+  </div>
+</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-step">STEP 02.1 // VIRTUALBOX</div>
+      <div class="card-title">Install VirtualBox + Extension Pack</div>
+      <div class="card-desc">Extension Pack adds USB 3.0, RDP server, NVMe, and PXE boot. Required for advanced lab scenarios including remote VM access.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>INSTALL</em> &mdash; Ubuntu/Debian</div>
+        <pre><span class="cm"># Add Oracle GPG key</span>
+<span class="cx">wget</span> -qO- https://www.virtualbox.org/download/oracle_vbox_2016.asc \
+  | sudo gpg --dearmor -o /usr/share/keyrings/vbox.gpg
+
+<span class="cm"># Add repository</span>
+<span class="cx">echo</span> <span class="cv">"deb [signed-by=/usr/share/keyrings/vbox.gpg] \
+https://download.virtualbox.org/virtualbox/debian jammy contrib"</span> \
+  | sudo tee /etc/apt/sources.list.d/virtualbox.list
+
+<span class="cm"># Install VirtualBox 7.x</span>
+<span class="cx">sudo apt update</span> &amp;&amp; sudo apt install <span class="cf">-y</span> virtualbox-7.0
+
+<span class="cm"># Install Extension Pack (match version!)</span>
+<span class="cx">VBoxManage</span> extpack install Oracle_VBox_ExtPack-7.0.x.vbox-extpack</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 02.2 // HOST-ONLY NETWORK</div>
+      <div class="card-title">Create Isolated Host-Only Adapter</div>
+      <div class="card-desc">This is your lab's internal backbone. VMs on this adapter can talk to each other but CANNOT reach the internet directly. Critical for containment.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>NETWORK CREATE</em> &mdash; CLI Method</div>
+        <pre><span class="cm"># Create host-only interface</span>
+<span class="cx">VBoxManage</span> hostonlyif create
+
+<span class="cm"># Configure subnet (192.168.56.x)</span>
+<span class="cx">VBoxManage</span> hostonlyif ipconfig vboxnet0 \
+  --ip 192.168.56.1 --netmask 255.255.255.0
+
+<span class="cm"># Disable DHCP (we assign static IPs)</span>
+<span class="cx">VBoxManage</span> dhcpserver remove --ifname vboxnet0
+
+<span class="cm"># Verify interface was created</span>
+<span class="cx">VBoxManage</span> list hostonlyifs</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 02.3 // VM SETTINGS</div>
+      <div class="card-title">Recommended VM Allocations</div>
+      <div class="card-desc">Always take a snapshot after initial OS install and before any tool installation. Snapshots are your undo button &mdash; use them religiously.</div>
+      <ul class="chk">
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span><strong>pfSense:</strong> 1 CPU, 1GB RAM, 8GB disk, 2 NICs</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span><strong>Kali Linux:</strong> 2 CPU, 4GB RAM, 60GB disk</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span><strong>REMnux:</strong> 2 CPU, 4GB RAM, 60GB disk</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span><strong>Windows Target:</strong> 2 CPU, 4GB RAM, 60GB disk</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span><strong>Snapshot after each phase!</strong>
+</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 02.4 // SNAPSHOT WORKFLOW</div>
+      <div class="card-title">Snapshot Strategy for Lab Safety</div>
+      <div class="card-desc">Follow this snapshot discipline &mdash; it mirrors what SANS instructors teach for malware analysis labs: clean baseline, pre-infection, post-analysis.</div>
+      <div class="code-wrap">
+        <div class="code-head"><em>SNAPSHOT COMMANDS</em></div>
+        <pre><span class="cm"># Take a named snapshot</span>
+<span class="cx">VBoxManage</span> snapshot <span class="cv">"KaliVM"</span> take <span class="cv">"baseline-clean"</span> \
+  --description <span class="cv">"Fresh install, no tools"</span>
+
+<span class="cm"># List all snapshots</span>
+<span class="cx">VBoxManage</span> snapshot <span class="cv">"KaliVM"</span> list
+
+<span class="cm"># Restore to clean state</span>
+<span class="cx">VBoxManage</span> snapshot <span class="cv">"KaliVM"</span> restore <span class="cv">"baseline-clean"</span>
+
+<span class="cm"># Clone VM for disposable instances</span>
+<span class="cx">VBoxManage</span> clonevm <span class="cv">"KaliVM"</span> --name <span class="cv">"Kali-Test"</span> \
+  --snapshot <span class="cv">"baseline-clean"</span> --options link --register</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="tpane" id="p3">
+  <div class="ph">
+<div class="ph-icon">&#127760;</div>
+<div>
+    <div class="ph-ey">// PHASE 03 &mdash; NETWORK ARCHITECTURE</div>
+    <div class="ph-title">pfSENSE FIREWALL &amp; NETWORK SEGMENTATION</div>
+    <div class="ph-desc">pfSense is the backbone of your lab network. It acts as the router, firewall, DHCP server, and VPN endpoint all in one. This mirrors enterprise network architecture taught in CompTIA Network+, CEH infrastructure modules, and SANS SEC504 network defense sections.</div>
+    <div class="badges">
+<span class="badge b1">CompTIA Network+</span><span class="badge b2">CEH Infrastructure</span><span class="badge b3">SANS SEC504</span><span class="badge b4">DEF CON NetSec</span>
+</div>
+  </div>
+</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-step">STEP 03.1 // pfSENSE VM SETUP</div>
+      <div class="card-title">Install pfSense as Your Lab Gateway</div>
+      <div class="card-desc">pfSense VM needs two network adapters: Adapter 1 (NAT) = WAN interface to internet. Adapter 2 (Host-Only) = LAN interface to lab segment.</div>
+      <ul class="chk">
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Create new VM &mdash; FreeBSD 64-bit type</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Adapter 1: NAT (WAN &mdash; internet uplink)</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Adapter 2: Host-Only vboxnet0 (LAN &mdash; lab)</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Boot from pfSense ISO and follow installer</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Assign WAN=em0, LAN=em1 during setup</li>
+        <li onclick="tc(this)">
+<span class="chk-box">&#10003;</span>Access web GUI at https://192.168.56.1</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 03.2 // FIREWALL RULES</div>
+      <div class="card-title">Configure Isolation Firewall Rules</div>
+      <div class="card-desc">Default pfSense config allows LAN-to-WAN. You must ADD rules to block lab VMs from reaching your real LAN, and restrict which VMs can access the internet.</div>
+      <div class="code-wrap">
+        <div class="code-head"><em>pfSense RULE LOGIC</em></div>
+        <pre><span class="cm"># LAN Interface Rules (in order):</span>
+
+<span class="cm"># 1. BLOCK RFC1918 to protect your real LAN</span>
+Action: Block | Source: LAN net
+Destination: 10.0.0.0/8, 172.16.0.0/12
+            192.168.0.0/16 (EXCEPT 192.168.56.0/24)
+
+<span class="cm"># 2. ALLOW lab VMs to reach pfSense DNS</span>
+Action: Allow | Source: LAN net
+Destination: LAN address | Port: 53
+
+<span class="cm"># 3. ALLOW internet for specific VMs only</span>
+Action: Allow | Source: 192.168.56.10 (Kali)
+Destination: any
+
+<span class="cm"># 4. BLOCK everything else</span>
+Action: Block | Source: LAN net | Dest: any</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 03.3 // VLAN SEGMENTATION</div>
+      <div class="card-title">Create Separate Attack &amp; Target VLANs</div>
+      <div class="card-desc">Advanced setup: separate attack machines from target machines using VLANs. This mirrors real-world pentesting where the tester and target are logically separated until exploitation.</div>
+      <div class="code-wrap">
+        <div class="code-head"><em>VLAN DESIGN</em></div>
+        <pre><span class="cm"># VLAN 10 &mdash; ATTACK SEGMENT</span>
+Subnet: 192.168.10.0/24
+Hosts:  Kali Linux, Parrot OS
+Gateway: 192.168.10.1
+
+<span class="cm"># VLAN 20 &mdash; TARGET SEGMENT  </span>
+Subnet: 192.168.20.0/24
+Hosts:  Windows Target, Metasploitable
+Gateway: 192.168.20.1
+
+<span class="cm"># VLAN 30 &mdash; MANAGEMENT</span>
+Subnet: 192.168.30.0/24
+Hosts:  SIEM (Wazuh), pfSense GUI
+Gateway: 192.168.30.1
+
+<span class="cm"># Inter-VLAN routing controlled by pfSense</span></pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 03.4 // DNS &amp; DHCP</div>
+      <div class="card-title">Configure DNS Resolver &amp; DHCP</div>
+      <div class="card-desc">Run pfSense as your DNS resolver. This lets you log all DNS queries from lab VMs &mdash; invaluable for detecting C2 callbacks in malware analysis.</div>
+      <div class="code-wrap">
+        <div class="code-head"><em>DNS CONFIG &mdash; pfSense Shell</em></div>
+        <pre><span class="cm"># Set upstream DNS (use Quad9 for security)</span>
+System &gt; General &gt; DNS: 9.9.9.9, 149.112.112.112
+
+<span class="cm"># Enable DNS resolver logging</span>
+Services &gt; DNS Resolver &gt; Advanced:
+  Log level: 2 (queries logged)
+
+<span class="cm"># DHCP static mappings for lab VMs</span>
+Services &gt; DHCP Server &gt; LAN:
+  Kali:    MAC xx:xx -&gt; 192.168.56.10
+  REMnux:  MAC xx:xx -&gt; 192.168.56.20
+  Windows: MAC xx:xx -&gt; 192.168.56.30</pre>
+      </div>
+    </div>
+  </div>
+  <div class="alert ag">
+<span class="alert-icon">&#10003;</span><div>
+<strong>Expected Result After Phase 3:</strong> Your lab VMs should be able to ping each other via the pfSense LAN. Your real workstation should NOT be reachable from lab VMs. pfSense web GUI accessible at 192.168.56.1 from host only.</div>
+</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="tpane" id="p4">
+  <div class="ph">
+<div class="ph-icon">&#128272;</div>
+<div>
+    <div class="ph-ey">// PHASE 04 &mdash; VPN &amp; TOR</div>
+    <div class="ph-title">VPN GATEWAY &amp; TOR INTEGRATION</div>
+    <div class="ph-desc">Two separate capabilities: VPN provides encrypted tunneling for external lab access and simulating corporate VPN environments (CEH Module 12). Tor integration allows anonymous outbound testing traffic from your Kali instance &mdash; critical for OSINT operations and testing detection systems.</div>
+    <div class="badges">
+<span class="badge b1">CompTIA Sec+</span><span class="badge b2">CEH Module 12</span><span class="badge b3">SANS SEC504</span><span class="badge b4">DEF CON Privacy</span>
+</div>
+  </div>
+</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-step">STEP 04.1 // WIREGUARD VPN</div>
+      <div class="card-title">Deploy WireGuard on pfSense</div>
+      <div class="card-desc">WireGuard is modern, fast, and cryptographically superior to OpenVPN for most use cases. Allows you to connect to your lab remotely from anywhere &mdash; critical for remote IR scenarios.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>WIREGUARD SETUP</em> &mdash; pfSense + Kali Client</div>
+        <pre><span class="cm"># Install WireGuard pkg in pfSense</span>
+System &gt; Package Manager &gt; Available &gt; wireguard
+
+<span class="cm"># Generate server keys (pfSense shell)</span>
+<span class="cx">wg</span> genkey | tee /root/wg_private.key | wg pubkey &gt; /root/wg_public.key
+
+<span class="cm"># Kali: Install WireGuard client</span>
+<span class="cx">sudo apt install</span> <span class="cf">-y</span> wireguard wireguard-tools
+
+<span class="cm"># Generate client keypair on Kali</span>
+<span class="cx">wg</span> genkey | tee kali_private | wg pubkey &gt; kali_public
+
+<span class="cm"># Create client config</span>
+<span class="cx">cat</span> &gt; /etc/wireguard/wg0.conf <span class="cv">&lt;&lt;EOF
+[Interface]
+PrivateKey = &lt;kali_private_key&gt;
+Address = 10.10.0.2/24
+DNS = 192.168.56.1
+
+[Peer]
+PublicKey = &lt;pfsense_public_key&gt;
+Endpoint = &lt;your_wan_ip&gt;:51820
+AllowedIPs = 192.168.56.0/24
+EOF</span>
+
+<span class="cm"># Start tunnel</span>
+<span class="cx">sudo wg-quick</span> up wg0</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 04.2 // OPENVPN (ALTERNATIVE)</div>
+      <div class="card-title">OpenVPN &mdash; CEH Lab Compatibility</div>
+      <div class="card-desc">OpenVPN is used in CEH practical labs and is more widely supported. Use this if you need compatibility with older clients or corporate exam environments.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>OPENVPN SERVER</em> &mdash; pfSense Wizard</div>
+        <pre><span class="cm"># pfSense: Use built-in OpenVPN wizard</span>
+VPN &gt; OpenVPN &gt; Wizards &gt; Local User Auth
+  Protocol: UDP on IPv4 only
+  Port: 1194
+  Tunnel Network: 10.8.0.0/24
+  Local Network: 192.168.56.0/24
+  Encryption: AES-256-GCM
+  Auth Digest: SHA256
+
+<span class="cm"># Export client config package</span>
+System &gt; Package Manager: openvpn-client-export
+VPN &gt; OpenVPN &gt; Client Export
+
+<span class="cm"># Connect from Kali</span>
+<span class="cx">sudo openvpn</span> <span class="cf">--config</span> lab-client.ovpn
+
+<span class="cm"># Verify tunnel IP assigned</span>
+<span class="cx">ip addr show</span> tun0</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 04.3 // TOR GATEWAY</div>
+      <div class="card-title">Route Lab Traffic Through Tor</div>
+      <div class="card-desc">Install Tor on pfSense to route specific VMs through the Tor network. Useful for simulating anonymized attacker traffic and testing your IDS/IPS detection capabilities.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>TOR PROXY SETUP</em> &mdash; Kali Linux</div>
+        <pre><span class="cm"># Install Tor on Kali</span>
+<span class="cx">sudo apt install</span> <span class="cf">-y</span> tor torsocks proxychains4
+
+<span class="cm"># Start and enable Tor service</span>
+<span class="cx">sudo systemctl</span> start tor
+<span class="cx">sudo systemctl</span> enable tor
+
+<span class="cm"># Verify Tor is running (port 9050)</span>
+<span class="cx">ss -tlnp</span> | grep 9050
+
+<span class="cm"># Configure proxychains</span>
+<span class="cx">sudo nano</span> /etc/proxychains4.conf
+<span class="cm"># Change: socks4 127.0.0.1 9050</span>
+<span class="cm"># To:     socks5 127.0.0.1 9050</span>
+
+<span class="cm"># Test: route nmap through Tor</span>
+<span class="cx">proxychains</span> nmap <span class="cf">-sT</span> <span class="cf">-Pn</span> target_ip
+
+<span class="cm"># Check your Tor exit IP</span>
+<span class="cx">torsocks</span> curl https://check.torproject.org/api/ip</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 04.4 // TOR BROWSER VM</div>
+      <div class="card-title">Dedicated Tor Browser Instance</div>
+      <div class="card-desc">Never use Tor Browser on your host machine. Run it inside a dedicated Kali or REMnux VM for full isolation. This is how professional OSINT analysts operate safely.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>TOR BROWSER INSTALL</em> &mdash; Inside VM Only</div>
+        <pre><span class="cm"># Inside Kali VM &mdash; download Tor Browser</span>
+<span class="cx">wget</span> https://www.torproject.org/dist/torbrowser/13.x/\
+tor-browser-linux-x86_64-13.x.tar.xz
+
+<span class="cm"># Verify GPG signature (mandatory)</span>
+<span class="cx">gpg</span> --verify tor-browser-linux-x86_64-13.x.tar.xz.asc
+
+<span class="cm"># Extract and run</span>
+<span class="cx">tar -xJf</span> tor-browser-linux*.tar.xz
+<span class="cx">cd</span> tor-browser &amp;&amp; ./start-tor-browser.desktop
+
+<span class="cm"># Security Level: set to SAFEST</span>
+<span class="cm"># Shield icon &gt; Change &gt; Safest</span>
+<span class="cm"># Disables JS, removes attack surface</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="alert aw">
+<span class="alert-icon">&#9888;</span><div>
+<strong>Tor Usage Warning:</strong> Tor does NOT make you fully anonymous. Exit nodes can see unencrypted traffic. Always use HTTPS. Never login to personal accounts over Tor. Tor Browser in a VM is for OSINT research on threat actor infrastructure &mdash; not for any illegal activity.</div>
+</div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="tpane" id="p5">
+  <div class="ph">
+<div class="ph-icon">&#128421;&#65039;</div>
+<div>
+    <div class="ph-ey">// PHASE 05 &mdash; LAB VIRTUAL MACHINES</div>
+    <div class="ph-title">ATTACK, TARGET &amp; ANALYSIS VMs</div>
+    <div class="ph-desc">Your lab needs at least three types of VMs: an attack machine (Kali Linux), a target machine (intentionally vulnerable), and a malware analysis sandbox (REMnux or FlareVM). This mirrors the exact lab setup used in SANS FOR610, CEH practical exercises, and DEF CON workshops.</div>
+    <div class="badges">
+<span class="badge b1">CompTIA PenTest+</span><span class="badge b2">CEH Practical</span><span class="badge b3">SANS FOR610</span><span class="badge b4">DEF CON Villages</span>
+</div>
+  </div>
+</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-step">STEP 05.1 // KALI LINUX</div>
+      <div class="card-title">Attack Machine &mdash; Kali Linux 2024</div>
+      <div class="card-desc">The standard offensive security distro. Used in CEH practical exams, PenTest+ labs, and every DEF CON hands-on workshop. Pre-loaded with 600+ tools.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>POST-INSTALL HARDENING</em> &mdash; Kali VM</div>
+        <pre><span class="cm"># Update everything first</span>
+<span class="cx">sudo apt update</span> &amp;&amp; sudo apt full-upgrade <span class="cf">-y</span>
+
+<span class="cm"># Change default credentials immediately</span>
+<span class="cx">passwd</span>
+
+<span class="cm"># Install additional OSINT/recon tools</span>
+<span class="cx">sudo apt install</span> <span class="cf">-y</span> maltego recon-ng \
+  theharvester spiderfoot eyewitness
+
+<span class="cm"># Install Impacket for AD attacks</span>
+<span class="cx">sudo apt install</span> <span class="cf">-y</span> python3-impacket
+
+<span class="cm"># Static IP assignment</span>
+<span class="cx">sudo nmcli</span> con mod eth0 ipv4.addresses 192.168.56.10/24
+<span class="cx">sudo nmcli</span> con mod eth0 ipv4.gateway 192.168.56.1
+<span class="cx">sudo nmcli</span> con mod eth0 ipv4.method manual
+<span class="cx">sudo nmcli</span> con up eth0</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 05.2 // REMNUX</div>
+      <div class="card-title">Malware Analysis &mdash; REMnux</div>
+      <div class="card-desc">REMnux is the gold standard for malware analysis &mdash; referenced in every SANS FOR610 course. Built for reverse engineering, dynamic analysis, and network simulation of C2 traffic.</div>
+      <div class="code-wrap">
+        <div class="code-head"><em>KEY TOOLS IN REMnux</em></div>
+        <pre><span class="cm"># Dynamic analysis</span>
+<span class="cx">floss</span> malware.exe        <span class="cm"># Extract strings</span>
+<span class="cx">capa</span> malware.exe         <span class="cm"># Detect capabilities</span>
+<span class="cx">pestudio</span>                 <span class="cm"># PE file analysis</span>
+
+<span class="cm"># Network simulation (fake C2 listener)</span>
+<span class="cx">inetsim</span>                  <span class="cm"># Simulate internet services</span>
+<span class="cx">fakenet-ng</span>               <span class="cm"># Windows traffic analysis</span>
+
+<span class="cm"># Memory forensics</span>
+<span class="cx">vol3</span> <span class="cf">-f</span> memory.dmp \
+  <span class="cf">-p</span> windows.pslist      <span class="cm"># Process listing</span>
+<span class="cx">vol3</span> <span class="cf">-f</span> memory.dmp \
+  <span class="cf">-p</span> windows.netscan     <span class="cm"># Network connections</span>
+
+<span class="cm"># PCAP analysis</span>
+<span class="cx">tcpdump</span> <span class="cf">-i</span> eth0 <span class="cf">-w</span> capture.pcap
+<span class="cx">wireshark</span> capture.pcap</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 05.3 // TARGET VMs</div>
+      <div class="card-title">Intentionally Vulnerable Targets</div>
+      <div class="card-desc">Practice your attacks on machines designed to be compromised. These are the same targets used in CEH practical labs and CompTIA PenTest+ certification exercises.</div>
+      <div class="tools" style="grid-template-columns:1fr 1fr;gap:.6rem;">
+        <div class="tool">
+<div class="tool-name">Metasploitable 3</div>
+<div class="tool-type">Linux + Windows</div>
+<span class="pill pfree">FREE</span>
+</div>
+        <div class="tool">
+<div class="tool-name">DVWA</div>
+<div class="tool-type">Web App Target</div>
+<span class="pill pfree">FREE</span>
+</div>
+        <div class="tool">
+<div class="tool-name">VulnHub VMs</div>
+<div class="tool-type">CTF Targets</div>
+<span class="pill pfree">FREE</span>
+</div>
+        <div class="tool">
+<div class="tool-name">HackTheBox</div>
+<div class="tool-type">Cloud Labs</div>
+<span class="pill pfree2">FREE/PRO</span>
+</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 05.4 // WINDOWS SANDBOX</div>
+      <div class="card-title">Windows Analysis Environment</div>
+      <div class="card-desc">Windows Sandbox (built into Win 10/11 Pro) provides a throwaway Windows environment that resets on every close &mdash; perfect for quick malware detonation without snapshots.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>ENABLE WINDOWS SANDBOX</em> &mdash; PowerShell (Admin)</div>
+        <pre><span class="cm"># Enable Windows Sandbox feature</span>
+<span class="cx">Enable-WindowsOptionalFeature</span> <span class="cf">-Online</span> \
+  <span class="cf">-FeatureName</span> <span class="cv">"Containers-DisposableClientVM"</span> \
+  <span class="cf">-All</span>
+
+<span class="cm"># Restart required after enabling</span>
+
+<span class="cm"># Create sandbox config file (.wsb)</span>
+<span class="cm"># Restrict networking for malware analysis</span>
+<span class="cx">cat</span> &gt; lab-sandbox.wsb <span class="cv">&lt;&lt;EOF
+&lt;Configuration&gt;
+  &lt;Networking&gt;Disable&lt;/Networking&gt;
+  &lt;VGpu&gt;Disable&lt;/VGpu&gt;
+  &lt;MappedFolders&gt;
+    &lt;MappedFolder&gt;
+      &lt;HostFolder&gt;C:\Samples&lt;/HostFolder&gt;
+      &lt;ReadOnly&gt;true&lt;/ReadOnly&gt;
+    &lt;/MappedFolder&gt;
+  &lt;/MappedFolders&gt;
+&lt;/Configuration&gt;
+EOF</span></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="tpane" id="p6">
+  <div class="ph">
+<div class="ph-icon">&#128225;</div>
+<div>
+    <div class="ph-ey">// PHASE 06 &mdash; MONITORING &amp; DETECTION</div>
+    <div class="ph-title">SIEM, LOGGING &amp; TRAFFIC ANALYSIS</div>
+    <div class="ph-desc">A lab without visibility is just chaos. Deploy Wazuh as your free SIEM to aggregate logs from all VMs. Wireshark on pfSense captures all inter-VM traffic. This monitoring stack mirrors what CompTIA CySA+ and SANS SEC504 teach for blue team operations and incident response.</div>
+    <div class="badges">
+<span class="badge b1">CompTIA CySA+</span><span class="badge b3">SANS SEC504 Blue Team</span><span class="badge b2">CEH Module 19</span>
+</div>
+  </div>
+</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-step">STEP 06.1 // WAZUH SIEM</div>
+      <div class="card-title">Deploy Wazuh SIEM Server</div>
+      <div class="card-desc">Wazuh is a free, open-source SIEM used in real enterprise environments. Collects logs from all your VMs, detects intrusions, and provides a SOC-style dashboard.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>WAZUH INSTALL</em> &mdash; Ubuntu 22.04 VM</div>
+        <pre><span class="cm"># Download and run Wazuh installer</span>
+<span class="cx">curl</span> <span class="cf">-sO</span> https://packages.wazuh.com/4.7/wazuh-install.sh
+<span class="cx">sudo bash</span> wazuh-install.sh <span class="cf">-a</span>
+
+<span class="cm"># Access dashboard at https://&lt;wazuh-ip&gt;</span>
+<span class="cm"># Default: admin / &lt;generated-password&gt;</span>
+
+<span class="cm"># Install agent on Kali Linux</span>
+<span class="cx">wget</span> -qO - https://packages.wazuh.com/key/GPG-KEY-WAZUH \
+  | sudo apt-key add -
+<span class="cx">sudo apt install</span> <span class="cf">-y</span> wazuh-agent
+
+<span class="cm"># Configure agent to report to Wazuh server</span>
+<span class="cx">sudo nano</span> /var/ossec/etc/ossec.conf
+<span class="cm"># Set: &lt;address&gt;192.168.56.40&lt;/address&gt;</span>
+<span class="cx">sudo systemctl</span> start wazuh-agent</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 06.2 // PACKET CAPTURE</div>
+      <div class="card-title">Full Packet Capture on pfSense</div>
+      <div class="card-desc">Enable packet capture on the pfSense LAN interface to capture all inter-VM traffic. Export PCAP files to Wireshark for deep analysis &mdash; the foundation of network forensics training.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>TCPDUMP</em> &mdash; pfSense Shell</div>
+        <pre><span class="cm"># Capture all LAN traffic to file</span>
+<span class="cx">tcpdump</span> <span class="cf">-i</span> em1 <span class="cf">-w</span> /tmp/lab-capture.pcap
+
+<span class="cm"># Capture only specific VM traffic</span>
+<span class="cx">tcpdump</span> <span class="cf">-i</span> em1 host 192.168.56.10 \
+  <span class="cf">-w</span> /tmp/kali-traffic.pcap
+
+<span class="cm"># Analyze in Wireshark (from Kali)</span>
+<span class="cm"># Copy pcap over SCP then open:</span>
+<span class="cx">scp</span> admin@192.168.56.1:/tmp/lab-capture.pcap .
+<span class="cx">wireshark</span> lab-capture.pcap
+
+<span class="cm"># Filter for suspicious DNS queries</span>
+<span class="cm"># Wireshark filter: dns and not ip.dst==9.9.9.9</span>
+
+<span class="cm"># Look for C2 beaconing patterns</span>
+<span class="cm"># Stats &gt; I/O Graph &gt; regular intervals</span></pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 06.3 // LOG CENTRALIZATION</div>
+      <div class="card-title">Centralize All VM Logs</div>
+      <div class="card-desc">Forward syslog from every VM to your Wazuh SIEM. This gives you a unified view of all lab activity &mdash; essential for practicing SOC analyst workflows.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>SYSLOG FORWARD</em> &mdash; All Linux VMs</div>
+        <pre><span class="cm"># Install rsyslog if not present</span>
+<span class="cx">sudo apt install</span> <span class="cf">-y</span> rsyslog
+
+<span class="cm"># Forward all logs to Wazuh server</span>
+<span class="cx">echo</span> <span class="cv">'*.* @192.168.56.40:514'</span> \
+  | sudo tee -a /etc/rsyslog.conf
+
+<span class="cm"># Restart rsyslog</span>
+<span class="cx">sudo systemctl</span> restart rsyslog
+
+<span class="cm"># Verify logs arriving at Wazuh</span>
+<span class="cm"># Dashboard &gt; Security Events &gt; filter by agent</span>
+
+<span class="cm"># Windows: forward via Wazuh agent</span>
+<span class="cm"># Agent auto-collects Event Log, Sysmon</span>
+<span class="cm"># Install Sysmon with SwiftOnSecurity config:</span>
+<span class="cx">sysmon64.exe</span> <span class="cf">-accepteula</span> <span class="cf">-i</span> sysmonconfig.xml</pre>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-step">STEP 06.4 // DETECTION RULES</div>
+      <div class="card-title">Write Your First Detection Rules</div>
+      <div class="card-desc">Practice writing Sigma/Wazuh detection rules. This is the core skill tested in CompTIA CySA+ and trained extensively in SANS SEC504 blue team exercises.</div>
+      <div class="code-wrap">
+        <div class="code-head">
+<em>WAZUH CUSTOM RULE</em> &mdash; Nmap Detection</div>
+        <pre><span class="cm"># /var/ossec/etc/rules/local_rules.xml</span>
+
+&lt;rule id=<span class="cv">"100001"</span> level=<span class="cv">"10"</span>&gt;
+  &lt;if_group&gt;syslog&lt;/if_group&gt;
+  &lt;match&gt;nmap&lt;/match&gt;
+  &lt;description&gt;Nmap scan detected&lt;/description&gt;
+  &lt;mitre&gt;
+    &lt;id&gt;T1046&lt;/id&gt; <span class="cm">&lt;!-- Network Service Discovery --&gt;</span>
+  &lt;/mitre&gt;
+  &lt;group&gt;recon,attack&lt;/group&gt;
+&lt;/rule&gt;
+
+<span class="cm"># Restart Wazuh manager to apply</span>
+<span class="cx">sudo systemctl</span> restart wazuh-manager
+
+<span class="cm"># Test by running nmap from Kali</span>
+<span class="cm"># Check Wazuh dashboard for alert</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="alert ag">
+<span class="alert-icon">&#10003;</span><div>
+<strong>Expected Result After Phase 6:</strong> Wazuh dashboard shows all VM agents reporting. Wireshark captures confirm inter-VM traffic. Custom rules fire when you run nmap scans from Kali. You now have a functional blue team monitoring stack.</div>
+</div>
+</div>
+
+</div>
+<!-- end tabs -->
+<!-- end wrap -->
+</section>
+<!-- PHASE 7 OSINT -->
+<section id="osint">
+<div class="wrap">
+<div class="sec-head">
+  <div class="sec-ey">// PHASE 07 &mdash; OSINT OPERATIONAL SECURITY</div>
+  <div class="sec-title">SANDBOXED BROWSING &amp; OSINT TOOLS</div>
+  <p class="sec-desc">The most overlooked layer of any security lab. When conducting OSINT &mdash; visiting threat actor infrastructure, dark web links, or suspicious URLs &mdash; your browser and network traffic can expose you. These tools solve that problem.</p>
+</div>
+
+<div class="ph" style="border-left-color:var(--accent4)">
+  <div class="ph-icon">&#128373;&#65039;</div>
+  <div>
+    <div class="ph-ey" style="color:var(--accent4)">// WHY SANDBOXED BROWSING MATTERS</div>
+    <div class="ph-title">THE PROBLEM WITH REGULAR BROWSERS</div>
+    <div class="ph-desc">When you visit a threat actor's C2 panel, phishing page, or dark web forum from your regular browser &mdash; even behind a VPN &mdash; you risk: real IP leakage via WebRTC, browser fingerprinting, JavaScript-based deanonymization, malware drive-by download, and leaving logs on the destination server that trace back to you. Sandboxed and cloud browsers eliminate these vectors entirely.</div>
+    <div class="badges">
+<span class="badge b3">SANS OSINT</span><span class="badge b4">DEF CON OSINT Track</span><span class="badge b2">CEH Footprinting</span>
+</div>
+  </div>
+</div>
+
+<table class="tbl" style="margin-bottom:2rem;">
+  <thead>
+    <tr>
+      <th>Tool</th>
+<th>Local Traffic?</th>
+<th>IP Exposed?</th>
+<th>JS Risk?</th>
+<th>Cost</th>
+<th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td><strong>Authentic8 Silo</strong></td>
+<td class="no">NONE</td>
+<td class="no">NO</td>
+<td class="no">NO</td>
+<td>Paid</td>
+<td>Professional OSINT, LE</td>
+</tr>
+    <tr>
+<td><strong>AnyRun</strong></td>
+<td class="no">NONE</td>
+<td class="no">NO</td>
+<td class="no">NO</td>
+<td>Free/Paid</td>
+<td>Malware URL detonation</td>
+</tr>
+    <tr>
+<td><strong>URLScan.io</strong></td>
+<td class="no">NONE</td>
+<td class="no">NO</td>
+<td class="no">NO</td>
+<td>Free</td>
+<td>Passive URL analysis</td>
+</tr>
+    <tr>
+<td><strong>Browserling</strong></td>
+<td class="no">NONE</td>
+<td class="partial">PARTIAL</td>
+<td class="partial">LOW</td>
+<td>Free/Paid</td>
+<td>Quick cross-browser checks</td>
+</tr>
+    <tr>
+<td><strong>Whonix</strong></td>
+<td class="partial">VM ONLY</td>
+<td class="no">NO (Tor)</td>
+<td class="partial">LOW</td>
+<td>Free</td>
+<td>OS-level Tor isolation</td>
+</tr>
+    <tr>
+<td><strong>Tor Browser in VM</strong></td>
+<td class="partial">VM ONLY</td>
+<td class="no">NO</td>
+<td class="partial">MEDIUM</td>
+<td>Free</td>
+<td>Dark web browsing</td>
+</tr>
+  </tbody>
+</table>
+
+<div class="osint-cards">
+
+  <!-- AUTHENTIC8 -->
+  <div class="osint-card silo">
+    <div class="osint-tool-name">AUTHENTIC8 SILO</div>
+    <div class="osint-tagline">// CLOUD-ISOLATED BROWSER &mdash; ZERO LOCAL FOOTPRINT</div>
+    <div class="osint-desc">Silo is not a browser extension or VPN &mdash; it is a completely remote browser running on Authentic8's cloud infrastructure. When you use Silo, the actual browser computation happens on their servers. What you see is a pixel-streamed video of that remote session. <strong>No JavaScript executes locally. No network traffic touches your machine. Your real IP never reaches the destination.</strong> This is the gold standard for investigators, law enforcement, and professional OSINT analysts visiting hostile infrastructure.</div>
+    <div class="osint-how">
+      <strong>How it works technically:</strong> Your input (keyboard/mouse) goes to their cloud browser. The rendered page is streamed back as video. The destination site only sees Authentic8's datacenter IP. Cookies, cache, and session data are destroyed after every session &mdash; or can be preserved per analyst for long-term operations.
+    </div>
+    <div class="osint-how" style="margin-top:.8rem;">
+      <strong>Key OSINT use cases:</strong> Visiting threat actor marketplaces, checking C2 panels, researching malware campaign landing pages, accessing geo-restricted content for investigations, dark web research via built-in Tor integration, and reviewing phishing pages safely.
+    </div>
+    <div class="osint-tip">
+      PRO TIP: Authentic8 Silo for Research includes policy-based controls &mdash; you can configure it to disable all data storage, enforce exit node rotation, and log analyst activity for chain-of-custody documentation. Used by DHS, FBI, and major enterprise threat intel teams.
+    </div>
+    <div style="margin-top:.9rem;">
+      <span class="pill ppaid" style="font-size:.65rem;padding:.25rem .7rem;">PAID &mdash; ENTERPRISE</span>
+      <span class="pill pfree2" style="font-size:.65rem;padding:.25rem .7rem;margin-left:.4rem;">FREE TRIAL AVAILABLE</span>
+    </div>
+  </div>
+
+  <!-- ANYRUN -->
+  <div class="osint-card anyrun">
+    <div class="osint-tool-name">ANY.RUN</div>
+    <div class="osint-tagline">// INTERACTIVE CLOUD SANDBOX &mdash; LIVE MALWARE ANALYSIS</div>
+    <div class="osint-desc">ANY.RUN is an interactive cloud sandbox where you can detonate malware samples, visit suspicious URLs, and run executables &mdash; all inside a fully isolated Windows or Linux VM hosted on their infrastructure. Unlike automated sandboxes, ANY.RUN lets you interact with the sample in real time and observe behavior as it unfolds.</div>
+    <div class="osint-how">
+      <strong>For URL analysis:</strong> Paste any suspicious URL into ANY.RUN. It opens it in an isolated Windows VM, captures all network traffic, DNS queries, API calls, dropped files, registry changes, and process trees. You see everything without your machine ever touching the URL.
+    </div>
+    <div class="osint-how" style="margin-top:.8rem;">
+      <strong>Key outputs:</strong> Full PCAP download, IOC extraction (IPs, domains, hashes), MITRE ATT&amp;CK mapping, Suricata IDS alerts, memory dumps, and shareable public analysis links for team collaboration.
+    </div>
+    <div class="osint-tip" style="border-left-color:var(--accent3);background:rgba(255,107,53,.04);">
+      PRO TIP: Use ANY.RUN's public feed to watch live malware submissions from other researchers. Filter by tag (ransomware, stealer, RAT) to study current threat actor TTPs in real time &mdash; invaluable for threat intelligence enrichment.
+    </div>
+    <div style="margin-top:.9rem;">
+      <span class="pill pfree" style="font-size:.65rem;padding:.25rem .7rem;">FREE TIER (PUBLIC)</span>
+      <span class="pill ppaid" style="font-size:.65rem;padding:.25rem .7rem;margin-left:.4rem;">PAID (PRIVATE)</span>
+    </div>
+  </div>
+
+  <!-- URLSCAN -->
+  <div class="osint-card urlscan">
+    <div class="osint-tool-name">URLSCAN.IO</div>
+    <div class="osint-tagline">// PASSIVE URL DETONATION &mdash; NO LOCAL RISK</div>
+    <div class="osint-desc">URLScan.io scans URLs from their infrastructure and returns a full analysis: screenshot of the page, all outbound requests made by the page, DOM content, cookies set, certificates, IP geolocation, Shodan data on the hosting IP, and threat intel enrichment. Completely passive &mdash; you never connect to the target.</div>
+    <div class="osint-how">
+      <strong>API-driven workflow for analysts:</strong> Integrate URLScan.io into your OSINT automation pipeline to automatically detonate phishing URLs extracted from email headers, threat feeds, or paste sites.
+    </div>
+    <div class="code-wrap" style="margin-top:.9rem;">
+      <div class="code-head">
+<em>API USAGE</em> &mdash; Bash / Python</div>
+      <pre><span class="cm"># Submit URL for scanning</span>
+<span class="cx">curl</span> <span class="cf">-X POST</span> https://urlscan.io/api/v1/scan/ \
+  <span class="cf">-H</span> <span class="cv">"API-Key: YOUR_KEY"</span> \
+  <span class="cf">-H</span> <span class="cv">"Content-Type: application/json"</span> \
+  <span class="cf">-d</span> <span class="cv">'{"url":"https://suspicious.example.com","visibility":"private"}'</span>
+
+<span class="cm"># Retrieve results</span>
+<span class="cx">curl</span> https://urlscan.io/api/v1/result/&lt;scan-uuid&gt;/</pre>
+    </div>
+    <div class="osint-tip" style="border-left-color:var(--accent2);background:rgba(0,255,136,.04);">
+      PRO TIP: Use "visibility: private" for sensitive investigations. Public scans are visible to everyone &mdash; never scan internal URLs or anything that reveals your investigation targets.
+    </div>
+    <div style="margin-top:.9rem;"><span class="pill pfree" style="font-size:.65rem;padding:.25rem .7rem;">FREE TIER AVAILABLE</span></div>
+  </div>
+
+  <!-- BROWSERLING -->
+  <div class="osint-card browserling">
+    <div class="osint-tool-name">BROWSERLING</div>
+    <div class="osint-tagline">// CROSS-BROWSER LIVE SANDBOX &mdash; QUICK CHECKS</div>
+    <div class="osint-desc">Browserling runs real browsers (Chrome, Firefox, Safari, IE, Edge) on their cloud infrastructure. You stream the browser session live in your own browser. It is lighter-weight than Authentic8 Silo and works well for quick URL spot-checks, verifying how a phishing page renders, or testing browser-specific exploits in an isolated environment.</div>
+    <div class="osint-how">
+      <strong>Best use:</strong> Quick verification of suspicious links shared in threat intel reports. Check whether a URL loads a credential harvester, redirect chain, or drive-by download &mdash; without any local execution risk.
+    </div>
+    <div class="osint-how" style="margin-top:.8rem;">
+      <strong>Limitations vs Silo:</strong> Free tier is limited to 3 minutes per session. No built-in Tor. No chain-of-custody logging. Browserling's IP may be exposed depending on the session type. Not suitable for sensitive law enforcement operations.
+    </div>
+    <div class="osint-tip" style="border-left-color:var(--yellow);background:rgba(255,214,0,.04);">
+      PRO TIP: Combine Browserling for quick visual checks with URLScan.io for deep IOC extraction. They complement each other &mdash; Browserling shows you the visual, URLScan shows you the network behavior.
+    </div>
+    <div style="margin-top:.9rem;">
+      <span class="pill pfree" style="font-size:.65rem;padding:.25rem .7rem;">FREE (3 MIN)</span>
+      <span class="pill ppaid" style="font-size:.65rem;padding:.25rem .7rem;margin-left:.4rem;">PAID UNLIMITED</span>
+    </div>
+  </div>
+
+  <!-- WHONIX -->
+  <div class="osint-card whonix">
+    <div class="osint-tool-name">WHONIX</div>
+    <div class="osint-tagline">// OS-LEVEL TOR ISOLATION &mdash; TWO-VM ARCHITECTURE</div>
+    <div class="osint-desc">Whonix is not a browser &mdash; it is an operating system architecture. It uses two VMs: a Gateway VM that routes ALL traffic through Tor, and a Workstation VM where you do your work. The Workstation has no direct internet access &mdash; it can ONLY communicate through the Gateway. Even if malware fully compromises the Workstation, it cannot leak your real IP because the Workstation literally has no route to the internet except through Tor.</div>
+    <div class="osint-how">
+      <strong>How it differs from Tor Browser in a VM:</strong> With Tor Browser in a VM, a misconfigured application or malware could still bypass the browser and make direct network connections. With Whonix, this is architecturally impossible &mdash; the Workstation has no internet route except through the Gateway's Tor tunnel.
+    </div>
+    <div class="code-wrap" style="margin-top:.9rem;">
+      <div class="code-head">
+<em>WHONIX SETUP</em> &mdash; VirtualBox</div>
+      <pre><span class="cm"># Download both VMs from whonix.org</span>
+<span class="cm"># Verify GPG signatures on both OVA files</span>
+<span class="cx">gpg</span> --verify Whonix-Gateway*.ova.asc
+<span class="cx">gpg</span> --verify Whonix-Workstation*.ova.asc
+
+<span class="cm"># Import into VirtualBox</span>
+<span class="cx">VBoxManage</span> import Whonix-Gateway.ova
+<span class="cx">VBoxManage</span> import Whonix-Workstation.ova
+
+<span class="cm"># Start Gateway FIRST, then Workstation</span>
+<span class="cm"># Gateway handles all Tor routing</span>
+<span class="cm"># Workstation: verify IP via Tor check</span>
+<span class="cx">curl</span> https://check.torproject.org/api/ip</pre>
+    </div>
+    <div class="osint-tip" style="border-left-color:var(--accent4);background:rgba(196,0,255,.04);">
+      PRO TIP: Whonix + Authentic8 Silo is the ultimate OSINT stack. Use Whonix as your daily driver OS and Silo for specific investigations where even Tor exit node traffic could be fingerprinted. Layer your anonymity &mdash; never rely on a single tool.
+    </div>
+    <div style="margin-top:.9rem;"><span class="pill pfree" style="font-size:.65rem;padding:.25rem .7rem;">100% FREE / OPEN SOURCE</span></div>
+  </div>
+
+</div>
+<!-- end osint cards -->
+
+<div class="alert ai" style="margin-top:1rem;">
+<span class="alert-icon">&#128161;</span><div>
+<strong>OSINT OPSEC Golden Rule:</strong> The further your investigation from your real identity, the better. Stack your layers: Whonix (OS isolation) &rarr; Tor (network anonymization) &rarr; Authentic8 Silo (zero local execution) &rarr; URLScan/AnyRun (never connect directly). Each layer adds protection. The combination is what professional OSINT analysts and threat intelligence teams use in real investigations.</div>
+</div>
+
+</div>
+<!-- end wrap -->
+</section>
+<!-- OUTCOMES -->
+<section id="outcomes">
+<div class="wrap">
+<div class="sec-head">
+  <div class="sec-ey">// WHAT TO EXPECT</div>
+  <div class="sec-title">LAB OUTCOMES &amp; SKILLS GAINED</div>
+  <p class="sec-desc">After completing all 7 phases you will have a production-grade security research environment and the hands-on skills to back it up.</p>
+</div>
+<div class="outcomes">
+  <div class="oc">
+    <div class="oc-icon">&#128308;</div>
+    <div class="oc-title">OFFENSIVE SKILLS</div>
+    <div class="oc-desc">Practice real attack techniques in a safe environment aligned with CEH Practical and CompTIA PenTest+ objectives.</div>
+    <ul>
+      <li>Nmap reconnaissance &amp; enumeration</li>
+      <li>Metasploit exploitation framework</li>
+      <li>Password cracking with Hashcat/John</li>
+      <li>Web app attacks via DVWA/Burp Suite</li>
+      <li>Network sniffing &amp; MITM attacks</li>
+      <li>Privilege escalation techniques</li>
+    </ul>
+  </div>
+  <div class="oc">
+    <div class="oc-icon">&#128309;</div>
+    <div class="oc-title">DEFENSIVE SKILLS</div>
+    <div class="oc-desc">Build the blue team capabilities tested in CompTIA CySA+ and trained in SANS SEC504 incident response courses.</div>
+    <ul>
+      <li>SIEM log analysis &amp; correlation</li>
+      <li>Network traffic analysis (Wireshark)</li>
+      <li>Custom detection rule writing</li>
+      <li>Incident triage &amp; response workflow</li>
+      <li>Firewall rule configuration</li>
+      <li>Threat hunting fundamentals</li>
+    </ul>
+  </div>
+  <div class="oc">
+    <div class="oc-icon">&#128995;</div>
+    <div class="oc-title">MALWARE ANALYSIS</div>
+    <div class="oc-desc">Analyze real malware samples safely using REMnux and sandboxed environments &mdash; the core of SANS FOR610.</div>
+    <ul>
+      <li>Static PE analysis with PEStudio</li>
+      <li>Dynamic behavior monitoring</li>
+      <li>Network C2 traffic identification</li>
+      <li>IOC extraction and documentation</li>
+      <li>Memory forensics with Volatility</li>
+      <li>Sandbox evasion detection</li>
+    </ul>
+  </div>
+  <div class="oc">
+    <div class="oc-icon">&#128992;</div>
+    <div class="oc-title">OSINT &amp; THREAT INTEL</div>
+    <div class="oc-desc">Conduct professional OSINT operations with full anonymity using the sandboxed browser stack from Phase 7.</div>
+    <ul>
+      <li>Anonymous infrastructure research</li>
+      <li>Threat actor attribution techniques</li>
+      <li>IOC enrichment &amp; pivot analysis</li>
+      <li>Dark web monitoring safely</li>
+      <li>Phishing page analysis</li>
+      <li>Open-source threat feed integration</li>
+    </ul>
+  </div>
+  <div class="oc">
+    <div class="oc-icon">&#128994;</div>
+    <div class="oc-title">CERTIFICATION PREP</div>
+    <div class="oc-desc">Your lab directly supports preparation for these industry certifications used by hiring managers worldwide.</div>
+    <ul>
+      <li>CompTIA Security+ / CySA+ / PenTest+</li>
+      <li>CEH Practical (EC-Council)</li>
+      <li>SANS GPEN / GCIH / GREM</li>
+      <li>OSCP (Offensive Security)</li>
+      <li>eJPT / eCPPT (eLearnSecurity)</li>
+      <li>BTL1 (Blue Team Labs)</li>
+    </ul>
+  </div>
+  <div class="oc">
+    <div class="oc-icon">&#9889;</div>
+    <div class="oc-title">CAREER READINESS</div>
+    <div class="oc-desc">The hands-on experience from this lab directly translates to real job roles in the cybersecurity industry.</div>
+    <ul>
+      <li>SOC Analyst (Tier 1 / 2 / 3)</li>
+      <li>Penetration Tester / Red Teamer</li>
+      <li>Threat Intelligence Analyst</li>
+      <li>Incident Response Analyst</li>
+      <li>Malware Analyst / DFIR</li>
+      <li>Security Engineer</li>
+    </ul>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+<div class="wrap">
+<div class="sec-head">
+  <div class="sec-ey">// OFFICIAL SOURCES</div>
+  <div class="sec-title">REFERENCES &amp; RESOURCES</div>
+  <p class="sec-desc">Every technique in this guide is grounded in official curriculum and research from these authoritative cybersecurity sources.</p>
+</div>
+<div class="refs-grid">
+
+  <div class="ref-card">
+    <div class="ref-source rs-comptia">// COMPTIA</div>
+    <div class="ref-title">CompTIA Security+ Exam Objectives</div>
+    <div class="ref-desc">Official SY0-701 exam objectives covering network security, virtualization security, and lab environment best practices used throughout Phase 1-3.</div>
+    <div class="ref-url">comptia.org/certifications/security</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-comptia">// COMPTIA</div>
+    <div class="ref-title">CompTIA CySA+ (CS0-003) Objectives</div>
+    <div class="ref-desc">Blue team and SOC analyst curriculum. Foundation for Phase 6 monitoring, Wazuh SIEM deployment, and detection rule writing content.</div>
+    <div class="ref-url">comptia.org/certifications/cybersecurity-analyst</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-comptia">// COMPTIA</div>
+    <div class="ref-title">CompTIA PenTest+ (PT0-002)</div>
+    <div class="ref-desc">Penetration testing methodology including lab setup requirements, attack VM configuration, and tools referenced in Phase 5.</div>
+    <div class="ref-url">comptia.org/certifications/pentest</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-ceh">// EC-COUNCIL / CEH</div>
+    <div class="ref-title">CEH v12 Practical Lab Manual</div>
+    <div class="ref-desc">EC-Council's official lab infrastructure for CEH Practical exam. Directly maps to the Kali + Windows + Metasploitable VM setup in Phase 5.</div>
+    <div class="ref-url">eccouncil.org/train-certify/certified-ethical-hacker-ceh</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-ceh">// EC-COUNCIL / CEH</div>
+    <div class="ref-title">CEH Module 12 &mdash; Hacking Webservers</div>
+    <div class="ref-desc">VPN architecture, tunneling, and evasion techniques. Background for the VPN gateway and Tor integration content in Phase 4.</div>
+    <div class="ref-url">eccouncil.org/ceh-course-outline</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-sans">// SANS INSTITUTE</div>
+    <div class="ref-title">SANS SEC504 &mdash; Hacker Tools, Exploits &amp; Incident Handling</div>
+    <div class="ref-desc">The primary reference for this guide's blue team monitoring stack, network architecture, and incident response workflow. SANS recommends VMware for all lab work.</div>
+    <div class="ref-url">sans.org/courses/hacker-techniques-incident-handling</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-sans">// SANS INSTITUTE</div>
+    <div class="ref-title">SANS FOR610 &mdash; Reverse Engineering Malware</div>
+    <div class="ref-desc">The definitive course for malware analysis lab setup. Foundation for the REMnux configuration, Windows Sandbox setup, and snapshot methodology in Phase 5.</div>
+    <div class="ref-url">sans.org/courses/reverse-engineering-malware</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-sans">// SANS INSTITUTE</div>
+    <div class="ref-title">SANS Cyber Aces &mdash; Free Online Tutorials</div>
+    <div class="ref-desc">Free SANS introductory curriculum covering Linux, Windows, and networking fundamentals. Ideal preparation before building this lab.</div>
+    <div class="ref-url">sans.org/cyberaces</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-defcon">// DEF CON</div>
+    <div class="ref-title">DEF CON Packet Hacking Village &mdash; Lab Workshops</div>
+    <div class="ref-desc">Hands-on network capture and analysis workshops that informed the Wireshark, tcpdump, and PCAP analysis methodology in Phase 6.</div>
+    <div class="ref-url">wallofsheep.com / defcon.org/villages</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-defcon">// DEF CON</div>
+    <div class="ref-title">DEF CON OSINT Village Presentations</div>
+    <div class="ref-desc">Annual conference track covering sandboxed browsing, OSINT operational security, and anonymous investigation techniques. Direct source for Phase 7 methodology.</div>
+    <div class="ref-url">defcon.org/html/defcon-31/dc-31-villages.html</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-defcon">// DEF CON</div>
+    <div class="ref-title">DEF CON Safe Mode &mdash; Talks Archive</div>
+    <div class="ref-desc">Free video archive of hundreds of DEF CON talks on network security, malware, OSINT, and lab techniques. Essential supplementary learning resource.</div>
+    <div class="ref-url">media.defcon.org</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">pfSense Documentation</div>
+    <div class="ref-desc">Official pfSense CE documentation for firewall rules, VPN setup, VLAN configuration, and DHCP/DNS services used throughout Phase 3-4.</div>
+    <div class="ref-url">docs.netgate.com/pfsense/en/latest</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">Kali Linux Official Documentation</div>
+    <div class="ref-desc">Kali Linux tool documentation, post-installation hardening guide, and network configuration reference. Foundation for Phase 5 attack machine setup.</div>
+    <div class="ref-url">kali.org/docs</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">REMnux Documentation &mdash; SANS</div>
+    <div class="ref-desc">Official REMnux usage documentation co-published with SANS Institute. Covers all malware analysis tools and workflows used in Phase 5.</div>
+    <div class="ref-url">docs.remnux.org</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">Wazuh Open Source SIEM Documentation</div>
+    <div class="ref-desc">Wazuh installation, agent deployment, rule writing, and dashboard configuration. Full reference for the Phase 6 monitoring stack.</div>
+    <div class="ref-url">documentation.wazuh.com</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">Authentic8 Silo &mdash; Technical Overview</div>
+    <div class="ref-desc">Official technical documentation explaining Silo's cloud-isolated browser architecture, zero local traffic design, and OSINT-specific research edition features.</div>
+    <div class="ref-url">authentic8.com/products/silo-for-research</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">ANY.RUN Interactive Sandbox</div>
+    <div class="ref-desc">ANY.RUN API documentation, sandbox analysis methodology, and threat intelligence integration guides. Reference for Phase 7 URL detonation workflow.</div>
+    <div class="ref-url">any.run / api.any.run/v1</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">URLScan.io API Documentation</div>
+    <div class="ref-desc">Complete API reference for programmatic URL scanning, result retrieval, and IOC extraction. Used in Phase 7 passive URL detonation section.</div>
+    <div class="ref-url">urlscan.io/docs/api</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// TOOL REFERENCE</div>
+    <div class="ref-title">Whonix Official Documentation</div>
+    <div class="ref-desc">Complete Whonix Gateway + Workstation setup guide, security design rationale, and comparison with other anonymization methods. Foundation for Phase 7 Whonix section.</div>
+    <div class="ref-url">whonix.org/wiki/Documentation</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// COMMUNITY RESOURCE</div>
+    <div class="ref-title">VulnHub &mdash; Free Vulnerable VMs</div>
+    <div class="ref-desc">Free library of intentionally vulnerable VMs for practice. All machines used in Phase 5 target setup are available here with difficulty ratings and walkthroughs.</div>
+    <div class="ref-url">vulnhub.com</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// COMMUNITY RESOURCE</div>
+    <div class="ref-title">HackTheBox Academy</div>
+    <div class="ref-desc">Structured learning paths that align with the lab phases in this guide. Free and Pro tiers available. CEH, OSCP, and CPTS certification paths available.</div>
+    <div class="ref-url">academy.hackthebox.com</div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-source rs-tool">// COMMUNITY RESOURCE</div>
+    <div class="ref-title">MITRE ATT&amp;CK Framework</div>
+    <div class="ref-desc">The universal taxonomy for adversary tactics, techniques, and procedures. Used throughout this guide for detection rule MITRE mapping and threat intelligence context.</div>
+    <div class="ref-url">attack.mitre.org</div>
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+  <div>
+    <div class="f-logo">CYBER<span>LAB</span> // BLUEPRINT</div>
+    <div class="f-author">Authored by <strong>Ejon Rexhepi</strong> &mdash; OSINT &amp; Cyber Threat Intelligence | Incident Response | AI in Cybersecurity</div>
+    <div class="f-legal" style="margin-top:.8rem;">This guide is for educational and professional development purposes only. All techniques described must only be practiced within your own isolated lab environment. Never conduct unauthorized testing against systems or networks you do not own or have explicit written authorization to test. Always comply with local laws and the ethical codes of CompTIA, EC-Council, SANS Institute, and DEF CON.</div>
+  </div>
+  <div class="f-right">
+    <div class="f-version">
+<strong>v1.0.0</strong> &mdash; 2025</div>
+    <div style="margin-top:.5rem;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);">PHASES: 7 / TOOLS: 20+ / COMMANDS: 50+</div>
+    <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.3rem;">
+      <span class="tag t1" style="font-size:.6rem;padding:.2rem .6rem;">CompTIA Aligned</span>
+      <span class="tag t2" style="font-size:.6rem;padding:.2rem .6rem;">CEH Aligned</span>
+      <span class="tag t3" style="font-size:.6rem;padding:.2rem .6rem;">SANS Aligned</span>
+      <span class="tag t4" style="font-size:.6rem;padding:.2rem .6rem;">DEF CON Aligned</span>
+    </div>
+  </div>
+</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('prog').style.width=pct+'%';
+});
+// Tab switching
+function sw(btn,id){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tpane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+// Checklist toggle
+function tc(li){
+  li.classList.toggle('done');
+  const box=li.querySelector('.chk-box');
+  box.textContent=li.classList.contains('done')?'&#10003;':'';
+}
+</script>
+</body>
+</html>
